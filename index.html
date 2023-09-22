@@ -354,7 +354,7 @@
       const path = window.location.pathname;
       const body = document.querySelector("div.componetn-table-data");
       console.log(path, path.includes("/watch-list"));
-      if (!path.includes("/watch-list")) {
+      if (path.includes("/watch-list")) {
         body.style.display = "none";
       }
       // Get all the <p> elements with the class 'tab'
