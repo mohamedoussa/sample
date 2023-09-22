@@ -6,12 +6,13 @@ const listCategories = document.querySelectorAll(
 );
 let page = document.querySelector(".page");
 let activeTab = document.querySelector(".tab-active").textContent;
+let searchString = "";
 let [channelPage, moviePage, seriePage] = [0, 0, 0];
 const perPage = 8;
 let [moviesTotalPages, channelTotalPages, seriesTotalPages] = [];
-let channel = fetchChannel();
-let series = fetchSeries();
-let movies = fetchMovies();
+let channel = fetchChannel;
+let series = fetchSeries;
+let movies = fetchMovies;
 
 // Add a click event listener to each <p> element
 ChangeContent();
@@ -34,7 +35,7 @@ tabs.forEach((tab) => {
 const listNamesStyel = document.querySelectorAll(".name");
 async function ChangeContent() {
   if (activeTab.toLocaleLowerCase() === "channels") {
-    const data = await channel;
+    const data = await channel();
     channelTotalPages = Math.ceil(data.totalSize / perPage);
     page.textContent = `${channelPage + 1}`;
     listNames.forEach((e, i) => {
@@ -50,7 +51,7 @@ async function ChangeContent() {
       e.setAttribute("title", data.content[i] ? data.content[i].category : "");
     });
   } else if (activeTab.toLocaleLowerCase() === "series") {
-    const data = await series;
+    const data = await series();
     seriesTotalPages = Math.ceil(data.totalSize / perPage);
     page.textContent = `${seriePage + 1}`;
     listNames.forEach((e, i) => {
@@ -67,7 +68,7 @@ async function ChangeContent() {
       e.setAttribute("title", data.content[i] ? data.content[i].category : "");
     });
   } else {
-    const data = await movies;
+    const data = await movies();
     moviesTotalPages = Math.ceil(data.totalSize / perPage);
     page.textContent = `${moviePage + 1}`;
     listNames.forEach((e, i) => {
@@ -88,26 +89,24 @@ async function ChangeContent() {
 // fetch the data
 
 async function fetchChannel() {
-  const req = await fetch(
-    `https://sea-lion-app-jpxak.ondigitalocean.app/content/list/CHANNEL?page=${channelPage}&size=${perPage}`
-  );
-
+  const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=CHANNEL&page=${channelPage}&size=${perPage}`;
+  // console.log(url);
+  const req = await fetch(`${url}`);
   const res = await req.json();
   const data = await res;
+
   return data;
 }
 async function fetchSeries() {
-  const req = await fetch(
-    `https://sea-lion-app-jpxak.ondigitalocean.app/content/list/SERIE?page=${seriePage}&size=${perPage}`
-  );
+  const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=SERIE&page=${seriePage}&size=${perPage}`;
+  const req = await fetch(`${url}`);
   const res = await req.json();
   const data = await res;
   return data;
 }
 async function fetchMovies() {
-  const req = await fetch(
-    `https://sea-lion-app-jpxak.ondigitalocean.app/content/list/MOVIE?page=${moviePage}&size=${perPage}`
-  );
+  const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=MOVIE&page=${moviePage}&size=${perPage}`;
+  const req = await fetch(`${url}`);
   const res = await req.json();
   const data = await res;
   return data;
@@ -125,12 +124,13 @@ prevPage.addEventListener("click", () => {
 });
 //--------------
 async function paginateNext() {
+  // console.log(moviesTotalPages, channelTotalPages, seriesTotalPages);
   if (activeTab.toLocaleLowerCase() === "channels") {
     if (channelTotalPages - 1 <= channelPage) {
       return;
     }
     channelPage++;
-    channel = fetchChannel();
+    fetchChannel();
     page.textContent = `${+page.textContent + 1}`;
     ChangeContent();
   } else if (activeTab.toLocaleLowerCase() === "series") {
@@ -138,7 +138,7 @@ async function paginateNext() {
       return;
     }
     seriePage++;
-    series = fetchSeries();
+    fetchSeries();
     page.textContent = `${+page.textContent + 1}`;
     ChangeContent();
   } else {
@@ -146,7 +146,7 @@ async function paginateNext() {
       return;
     }
     moviePage++;
-    movies = fetchMovies();
+    fetchMovies();
     page.textContent = `${+page.textContent + 1}`;
     ChangeContent();
   }
@@ -173,7 +173,7 @@ async function paginatePrev() {
 // searching
 const search = document.getElementById("searching");
 const searchIcon = document.getElementById("searchIcon");
-let searchString = "";
+
 search.addEventListener("change", (e) => {
   searchString = e.target.value;
 });
@@ -181,7 +181,7 @@ search.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     searchString = e.target.value;
     console.log(searchString);
-    searchResult();
+    ChangeContent();
   }
 });
 searchIcon.addEventListener("click", searchResult);
@@ -190,7 +190,5 @@ async function searchResult() {
   // first we reset the pages
   [channelPage, moviePage, seriePage] = [0, 0, 0];
   page.textContent = "1";
-  tabs.forEach((tab) => {
-    tab.classList.remove("tab-active");
-  });
+  ChangeContent();
 }
