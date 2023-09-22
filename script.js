@@ -173,6 +173,7 @@ async function paginatePrev() {
 // searching
 const search = document.getElementById("searching");
 const searchIcon = document.getElementById("searchIcon");
+const resetSearch = document.getElementById("resetSearch");
 
 search.addEventListener("change", (e) => {
   searchString = e.target.value;
@@ -185,7 +186,12 @@ search.addEventListener("keypress", (e) => {
   }
 });
 searchIcon.addEventListener("click", searchResult);
-
+resetSearch.addEventListener("click", () => {
+  searchString = "";
+  search.value = "";
+  console.log(search);
+  ChangeContent();
+});
 async function searchResult() {
   // first we reset the pages
   [channelPage, moviePage, seriePage] = [0, 0, 0];
