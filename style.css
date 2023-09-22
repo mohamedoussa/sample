@@ -143,6 +143,10 @@ input {
 .icon-arrow {
   cursor: pointer;
 }
+.page {
+  margin-top: 1px;
+  font-size: 20px;
+}
 /* responsive */
 @media (max-width: 360px) {
   .list-content .name {
