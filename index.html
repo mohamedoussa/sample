@@ -3,140 +3,576 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+      * {
+        /* border: none; */
+        /* outline: none; */
+        padding: 0px;
+        margin: 0px;
+        text-decoration: none;
+        color: white;
+      }
+      body {
+        background-color: #16171b;
+        font-family: "Inter", sans-serif;
+        font-size: 18px;
+      }
+      .tabs-container-xsl-1 {
+        padding: 8px;
+      }
+      .tabs-switcher-xsl-1 {
+        margin: auto;
+        display: flex;
+        width: 100%;
+        max-width: 499px;
+        height: 60px;
+        align-items: center;
+        border-radius: 30px;
+        background-color: #57585c;
+        margin-top: 80px;
+        margin-bottom: 40px;
+      }
+
+      .tab {
+        flex-grow: 1;
+        padding: 0px 16px;
+        height: 100%;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+      }
+      .tab-active-xsl-1 {
+        border-radius: 30px;
+        background-color: #c8c9c9;
+        color: black;
+        font-weight: 700;
+      }
+      .table-container {
+        overflow: hidden;
+        border-radius: 30px;
+        width: 84vw;
+        max-width: 1400px;
+        margin: auto;
+      }
+      .top_bar {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        padding: 29px 29px 12px;
+        background-color: #2c2e32;
+      }
+      input.input-xsl-1 {
+        flex: 1;
+        background-color: inherit;
+        border: none;
+        outline: none;
+        padding: 6px;
+      }
+      .input-search {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        gap: 3px;
+        width: 100%;
+        max-width: 399px;
+        height: 33px;
+        padding: 8px;
+        background-color: #3e3e3f;
+        border-radius: 22px;
+        border: #2d2e32;
+      }
+      .input-search .icon {
+        padding: 4px;
+        margin-top: 3px;
+        display: block;
+        cursor: pointer;
+      }
+
+      .list-head,
+      .list-content {
+        display: flex;
+        align-items: center;
+        background-color: #2c2e32;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 6px;
+      }
+
+      .list-head div,
+      .list-content div {
+        flex-grow: 1;
+        padding: 4px 8px;
+        word-break: keep-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .list-head .name,
+      .list-content .name {
+        text-align: center;
+        flex-grow: 0;
+        width: 50%;
+      }
+
+      .list-content {
+        background-color: rgba(255, 255, 255, 0.69);
+        margin-bottom: 1px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 0px;
+        border-bottom: 1px black solid;
+      }
+      .list-content div {
+        color: black;
+      }
+      .last-content {
+        border-bottom: none;
+      }
+      .pagination {
+        width: 100%;
+        max-width: 90px;
+        column-gap: 10px;
+        background-color: rgba(217, 217, 217, 0.55);
+        border-radius: 28px;
+        justify-content: center;
+        margin-top: 70px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 15px 50px;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-weight: 700;
+        display: flex;
+        box-sizing: content-box;
+        margin-bottom: 8px;
+      }
+      .icon-arrow {
+        cursor: pointer;
+      }
+      .page {
+        margin-top: 1px;
+        font-size: 20px;
+      }
+      /* responsive */
+      @media (max-width: 360px) {
+        .list-content .name {
+          min-width: 130px;
+          word-break: keep-all;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .tab {
+          padding: 0px 8px;
+        }
+        .top_bar {
+          justify-content: center;
+          padding: 6px;
+        }
+        body {
+          font-size: 10px;
+        }
+        .table-container {
+          width: 100%;
+        }
+      }
+      @media (min-width: 361px) and (max-width: 620px) {
+        body {
+          font-size: 12px;
+        }
+      }
+      @media (min-width: 621px) and (max-width: 760px) {
+        body {
+          font-size: 13px;
+        }
+      }
+      @media (min-width: 761px) and (max-width: 920px) {
+        .top_bar {
+          justify-content: center;
+          padding: 14px 21px 6px;
+        }
+        body {
+          font-size: 14px;
+        }
+        .table-container {
+          width: 96%;
+        }
+      }
+      @media (min-width: 921px) and (max-width: 1200px) {
+        body {
+          font-size: 16px;
+        }
+        .table-container {
+          width: 90%;
+        }
+      }
+    </style>
     <title>Table</title>
   </head>
-  <body>
-    <div class="tabs-container">
-      <div id="tabs" class="tabs-switcher">
-        <p class="tab tab-active">Channels</p>
-        <p class="tab">Series</p>
-        <p class="tab">Movies</p>
+  <body class="">
+    <div class="componetn-table-data">
+      <div class="tabs-container-xsl-1">
+        <div id="tabs" class="tabs-switcher-xsl-1">
+          <p class="tab tab-active-xsl-1">Channels</p>
+          <p class="tab">Series</p>
+          <p class="tab">Movies</p>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <div class="top_bar">
+          <div class="input-search">
+            <div id="searchIcon" class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="#ffff"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+                />
+              </svg>
+            </div>
+            <input
+              class="input-xsl-1"
+              id="searching"
+              type="text"
+              placeholder="Search..."
+            />
+            <div id="resetSearch" class="icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="#ffff"
+                class="bi bi-x-circle"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+                />
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <ul class="list">
+          <li class="list-head">
+            <div class="name">
+              <div>
+                <p id="fontsninja-text-79" class="fontsninja-family-28087">
+                  Name
+                </p>
+              </div>
+            </div>
+            <div class="list-category">
+              <div>
+                <p id="fontsninja-text-81" class="fontsninja-family-28087">
+                  Category
+                </p>
+              </div>
+            </div>
+          </li>
+          <!-- content -->
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <li class="list-content last-content">
+            <div class="name"></div>
+            <div class="list-category"></div>
+          </li>
+          <!-- end content -->
+        </ul>
+      </div>
+      <div class="pagination">
+        <div class="previous icon-arrow">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="#000"
+            class="bi bi-arrow-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+            />
+          </svg>
+        </div>
+        <p class="page">1</p>
+        <div class="next icon-arrow">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="25"
+            height="25"
+            fill="#000"
+            class="bi bi-arrow-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
 
-    <div class="table-container">
-      <div class="top_bar">
-        <div class="input-search">
-          <div id="searchIcon" class="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="#ffff"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-              />
-            </svg>
-          </div>
-          <input id="searching" type="text" placeholder="Search..." />
-          <div id="resetSearch" class="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="#ffff"
-              class="bi bi-x-circle"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-              />
-              <path
-                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <ul class="list">
-        <li class="list-head">
-          <div class="name">
-            <div>
-              <p id="fontsninja-text-79" class="fontsninja-family-28087">
-                Name
-              </p>
-            </div>
-          </div>
-          <div class="list-category">
-            <div>
-              <p id="fontsninja-text-81" class="fontsninja-family-28087">
-                Category
-              </p>
-            </div>
-          </div>
-        </li>
-        <!-- content -->
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-        <li class="list-content last-content">
-          <div class="name"></div>
-          <div class="list-category"></div>
-        </li>
-      </ul>
-    </div>
-    <div class="pagination">
-      <div class="previous icon-arrow">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="#000"
-          class="bi bi-arrow-left"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-          />
-        </svg>
-      </div>
-      <p class="page">1</p>
-      <div class="next icon-arrow">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          fill="#000"
-          class="bi bi-arrow-right"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-          />
-        </svg>
-      </div>
-    </div>
-    <script src="/script.js"></script>
+    <!-- js -->
+    <script>
+      const path = window.location.pathname;
+      const body = document.querySelector("div.componetn-table-data");
+      console.log(path, path.includes("/watch-list"));
+      if (!path.includes("/watch-list")) {
+        body.style.display = "none";
+      }
+      // Get all the <p> elements with the class 'tab'
+      const tabs = document.querySelectorAll(".tab");
+      const listNames = document.querySelectorAll(".list-content .name");
+      const listCategories = document.querySelectorAll(
+        ".list-content .list-category"
+      );
+      let page = document.querySelector(".page");
+      let activeTab = document.querySelector(".tab-active-xsl-1").textContent;
+      let searchString = "";
+      let [channelPage, moviePage, seriePage] = [0, 0, 0];
+      const perPage = 8;
+      let [moviesTotalPages, channelTotalPages, seriesTotalPages] = [];
+      let channel = fetchChannel;
+      let series = fetchSeries;
+      let movies = fetchMovies;
+
+      // Add a click event listener to each <p> element
+      ChangeContent();
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Remove the 'tab-active' class from all <p> elements
+          tabs.forEach((tab) => {
+            tab.classList.remove("tab-active-xsl-1");
+          });
+
+          // Add the 'tab-active' class to the clicked <p> element
+          tab.classList.add("tab-active-xsl-1");
+          activeTab = tab.textContent;
+          ChangeContent();
+        });
+      });
+
+      // change the data
+      const listNamesStyel = document.querySelectorAll(".name");
+      async function ChangeContent() {
+        if (activeTab.toLocaleLowerCase() === "channels") {
+          const data = await channel();
+          channelTotalPages = Math.ceil(data.totalSize / perPage);
+          page.textContent = `${channelPage + 1}`;
+          listNames.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].name : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].name : ""
+            );
+          });
+          listNamesStyel.forEach((e) => {
+            e.style.width = "50%";
+          });
+
+          listCategories.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].category : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].category : ""
+            );
+          });
+        } else if (activeTab.toLocaleLowerCase() === "series") {
+          const data = await series();
+          seriesTotalPages = Math.ceil(data.totalSize / perPage);
+          page.textContent = `${seriePage + 1}`;
+          listNames.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].name : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].name : ""
+            );
+          });
+
+          listNamesStyel.forEach((e) => {
+            e.style.width = "80%";
+          });
+
+          listCategories.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].category : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].category : ""
+            );
+          });
+        } else {
+          const data = await movies();
+          moviesTotalPages = Math.ceil(data.totalSize / perPage);
+          page.textContent = `${moviePage + 1}`;
+          listNames.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].name : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].name : ""
+            );
+          });
+          listNamesStyel.forEach((e) => {
+            e.style.width = "50%";
+          });
+
+          listCategories.forEach((e, i) => {
+            e.textContent = data.content[i] ? data.content[i].category : "";
+            e.setAttribute(
+              "title",
+              data.content[i] ? data.content[i].category : ""
+            );
+          });
+        }
+      }
+
+      // fetch the data
+
+      async function fetchChannel() {
+        const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=CHANNEL&page=${channelPage}&size=${perPage}`;
+        // console.log(url);
+        const req = await fetch(`${url}`);
+        const res = await req.json();
+        const data = await res;
+
+        return data;
+      }
+      async function fetchSeries() {
+        const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=SERIE&page=${seriePage}&size=${perPage}`;
+        const req = await fetch(`${url}`);
+        const res = await req.json();
+        const data = await res;
+        return data;
+      }
+      async function fetchMovies() {
+        const url = `https://sea-lion-app-jpxak.ondigitalocean.app/content/search?name=${searchString}&contentType=MOVIE&page=${moviePage}&size=${perPage}`;
+        const req = await fetch(`${url}`);
+        const res = await req.json();
+        const data = await res;
+        return data;
+      }
+      // pagination
+      const nextPage = document.querySelector(".next");
+      const prevPage = document.querySelector(".previous");
+      nextPage.addEventListener("click", paginateNext);
+      prevPage.addEventListener("click", () => {
+        if (+page.textContent === 1) {
+          return;
+        } else {
+          return paginatePrev();
+        }
+      });
+      //--------------
+      async function paginateNext() {
+        // console.log(moviesTotalPages, channelTotalPages, seriesTotalPages);
+        if (activeTab.toLocaleLowerCase() === "channels") {
+          if (channelTotalPages - 1 <= channelPage) {
+            return;
+          }
+          channelPage++;
+          fetchChannel();
+          page.textContent = `${+page.textContent + 1}`;
+          ChangeContent();
+        } else if (activeTab.toLocaleLowerCase() === "series") {
+          if (seriesTotalPages - 1 <= seriePage) {
+            return;
+          }
+          seriePage++;
+          fetchSeries();
+          page.textContent = `${+page.textContent + 1}`;
+          ChangeContent();
+        } else {
+          if (moviesTotalPages - 1 <= moviePage) {
+            return;
+          }
+          moviePage++;
+          fetchMovies();
+          page.textContent = `${+page.textContent + 1}`;
+          ChangeContent();
+        }
+      }
+      async function paginatePrev() {
+        if (activeTab.toLocaleLowerCase() === "channels") {
+          channelPage--;
+          fetchChannel();
+          page.textContent = `${+page.textContent - 1}`;
+          ChangeContent();
+        } else if (activeTab.toLocaleLowerCase() === "series") {
+          seriePage--;
+          fetchSeries();
+          page.textContent = `${+page.textContent - 1}`;
+          ChangeContent();
+        } else {
+          moviePage--;
+          fetchMovies();
+          page.textContent = `${+page.textContent - 1}`;
+          ChangeContent();
+        }
+      }
+
+      // searching
+      const search = document.getElementById("searching");
+      const searchIcon = document.getElementById("searchIcon");
+      const resetSearch = document.getElementById("resetSearch");
+
+      search.addEventListener("change", (e) => {
+        searchString = e.target.value;
+      });
+      search.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          searchString = e.target.value;
+          ChangeContent();
+        }
+      });
+      searchIcon.addEventListener("click", searchResult);
+      resetSearch.addEventListener("click", () => {
+        searchString = "";
+        search.value = "";
+        ChangeContent();
+      });
+      async function searchResult() {
+        // first we reset the pages
+        [channelPage, moviePage, seriePage] = [0, 0, 0];
+        page.textContent = "1";
+        ChangeContent();
+      }
+    </script>
   </body>
 </html>
