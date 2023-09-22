@@ -105,9 +105,8 @@ input {
 }
 .list-head .name,
 .list-content .name {
-  text-align: left;
   flex-grow: 0;
-  width: 50%;
+  width: 50%; text-align: center;
 }
 
 .list-content {
